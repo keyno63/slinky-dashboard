@@ -1,4 +1,4 @@
-package keyno.github
+package com.github.keyno.dashboard
 
 import slinky.core._
 import slinky.core.annotations.react

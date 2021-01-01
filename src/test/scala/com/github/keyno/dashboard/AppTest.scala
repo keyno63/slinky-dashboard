@@ -1,4 +1,4 @@
-package keyno.github
+package com.github.keyno.dashboard
 
 import slinky.web.ReactDOM
 import org.scalajs.dom.document

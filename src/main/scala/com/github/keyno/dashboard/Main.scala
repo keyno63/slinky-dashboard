@@ -1,4 +1,4 @@
-package keyno.github
+package com.github.keyno.dashboard
 
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSExportTopLevel, JSImport}
