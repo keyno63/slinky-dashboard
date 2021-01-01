@@ -4,32 +4,6 @@ name := "slinky-dashboard"
 
 scalaVersion := "2.13.2"
 
-lazy val `slinky-dashboard` = project
-  .in(file("."))
-  .settings(
-    libraryDependencies ++=Seq(
-      "me.shadaj" %%% "slinky-web" % "0.6.5",
-      "me.shadaj" %%% "slinky-hot" % "0.6.5",
-      "org.scalatest" %%% "scalatest" % "3.1.1" % Test
-    )
-  )
-
-val settings = Def.settings(
-  npmDependencies in Compile ++= Seq(
-    "react" -> "16.13.1",
-    "react-dom" -> "16.13.1",
-    "react-proxy" -> "1.1.8"
-  ),
-  npmDevDependencies in Compile ++= Seq(
-    "file-loader" -> "6.0.0",
-    "style-loader" -> "1.2.1",
-    "css-loader" -> "3.5.3",
-    "html-webpack-plugin" -> "4.3.0",
-    "copy-webpack-plugin" -> "5.1.1",
-    "webpack-merge" -> "4.2.2"
-  )
-)
-
 npmDependencies in Compile += "react" -> "16.13.1"
 npmDependencies in Compile += "react-dom" -> "16.13.1"
 npmDependencies in Compile += "react-proxy" -> "1.1.8"
