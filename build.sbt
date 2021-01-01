@@ -15,6 +15,7 @@ lazy val `slinky-dashboard` = project
       "org.scalatest" %%% "scalatest" % "3.1.1" % Test
     )
   )
+  .settings(settings)
 
 val settings = Def.settings(
   npmDependencies in Compile ++= Seq(
