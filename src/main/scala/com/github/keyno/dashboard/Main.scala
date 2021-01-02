@@ -3,12 +3,11 @@ package com.github.keyno.dashboard
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSExportTopLevel, JSImport}
 import scala.scalajs.LinkingInfo
-
-import slinky.core._
 import slinky.web.ReactDOM
 import slinky.hot
-
 import org.scalajs.dom
+import org.scalajs.dom.document
+import slinky.web.html.h1
 
 @JSImport("resources/index.css", JSImport.Default)
 @js.native
@@ -30,6 +29,7 @@ object Main {
       elem
     }
 
-    ReactDOM.render(App(), container)
+    //ReactDOM.render(App(), container)
+    ReactDOM.render(Square(), container)
   }
 }
