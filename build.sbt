@@ -21,7 +21,10 @@ val settings = Def.settings(
   npmDependencies in Compile ++= Seq(
     "react" -> "16.13.1",
     "react-dom" -> "16.13.1",
-    "react-proxy" -> "1.1.8"
+    "react-proxy" -> "1.1.8",
+    "@material-ui/core"   -> "3.9.4", // note: version 4 is not supported yet
+    "@material-ui/styles" -> "3.0.0-alpha.10", // note: version 4 is not supported yet
+    "@material-ui/icons"  -> "3.0.2"
   ),
   npmDevDependencies in Compile ++= Seq(
     "file-loader" -> "6.0.0",
