@@ -6,25 +6,50 @@ import slinky.core.facade.ReactElement
 import slinky.web.html._
 import slinky.web.svg.to
 
+import scala.scalajs.js
+import scala.scalajs.js.annotation.JSImport
+
+@JSImport("resources/Board.css", JSImport.Default)
+@js.native
+object BoardCSS extends js.Object
+
 @react class Board extends StatelessComponent {
   type Props = Unit
 
-  private val css = AppCSS
+  private val css = BoardCSS
 
   def render(): ReactElement = {
     List(
       head(),
-      second(),
+      body0(),
+      body1(),
     )
   }
 
   def head(): ReactElement = {
-    div(className := "App")(
+    div(className := "Board")(
       //      a(className := "App-header", href := "https://google.com")(
       //        "サンプルリンク"
       //      ),
-      header(className := "App-header")(
-        h1(className := "App-title")("サンプルリンク")
+      header(className := "Board-header")(
+        h1(className := "Board-title")("サンプルリンク")
+      )
+    )
+  }
+  def body0(): ReactElement = {
+    div(className := "Board-box")(
+      List(
+        p()("sample link1"),
+        second()
+      )
+    )
+  }
+
+  def body1(): ReactElement = {
+    div(className := "Board-box")(
+      List(
+        p()("sample link2"),
+        second()
       )
     )
   }
@@ -53,9 +78,7 @@ import slinky.web.svg.to
 
   def createLinkList(linkUrl: String, text: String): ReactElement = {
     li()(
-      div()(
-        a(href := linkUrl)(text)
-      )
+      a(href := linkUrl)(text)
     )
   }
 }

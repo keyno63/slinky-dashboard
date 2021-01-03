@@ -1,0 +1,19 @@
+.Board {
+    text-align: center;
+}
+
+.Board-header {
+    background-color: #222;
+    height: 80px;
+    padding: 20px;
+    color: white;
+}
+
+.Board-title {
+    font-size: 1.5em;
+}
+
+.Board-box {
+    float: left;
+    width: 200px;
+}
