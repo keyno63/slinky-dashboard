@@ -30,6 +30,7 @@ object Main {
     }
 
     //ReactDOM.render(App(), container)
-    ReactDOM.render(Square(), container)
+    //ReactDOM.render(Square(), container)
+    ReactDOM.render(Board(), container)
   }
 }
