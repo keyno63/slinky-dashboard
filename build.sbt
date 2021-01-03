@@ -1,13 +1,13 @@
 import sbt.Keys.version
 
-enablePlugins(ScalaJSBundlerPlugin)
-
 name := "slinky-dashboard"
 
 scalaVersion := "2.13.2"
 
 lazy val `slinky-dashboard` = project
   .in(file("."))
+  .enablePlugins(ScalaJSBundlerPlugin)
+  .enablePlugins(ScalablyTypedConverterPlugin)
   .settings(
     libraryDependencies ++=Seq(
       "me.shadaj" %%% "slinky-web" % "0.6.5",
@@ -19,12 +19,20 @@ lazy val `slinky-dashboard` = project
 
 val settings = Def.settings(
   npmDependencies in Compile ++= Seq(
+    // ui
+    "@material-ui/core"   -> "3.9.4", // note: version 4 is not supported yet
+    "@material-ui/styles" -> "3.0.0-alpha.10", // note: version 4 is not supported yet
+    "@material-ui/icons"  -> "3.0.2",
+    // typesprict
+    "@types/prop-types" -> "15.7.3",
+    "@types/react" -> "16.9.42",
+    "@types/react-dom" -> "16.9.8",
+    "@types/react-router-dom" -> "5.1.2",
+    // react
     "react" -> "16.13.1",
     "react-dom" -> "16.13.1",
     "react-proxy" -> "1.1.8",
-    "@material-ui/core"   -> "3.9.4", // note: version 4 is not supported yet
-    "@material-ui/styles" -> "3.0.0-alpha.10", // note: version 4 is not supported yet
-    "@material-ui/icons"  -> "3.0.2"
+    "react-router-dom" -> "5.1.2"
   ),
   npmDevDependencies in Compile ++= Seq(
     "file-loader" -> "6.0.0",
@@ -34,6 +42,7 @@ val settings = Def.settings(
     "copy-webpack-plugin" -> "5.1.1",
     "webpack-merge" -> "4.2.2"
   ),
+  stIgnore := List("react-proxy"),
   scalacOptions += "-Ymacro-annotations",
   version in webpack := "4.43.0",
   version in startWebpackDevServer:= "3.11.0",
