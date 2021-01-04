@@ -36,6 +36,7 @@ object BoardCSS extends js.Object
       )
     )
   }
+
   def body0(): ReactElement = {
     div(className := "Board-box")(
       List(
