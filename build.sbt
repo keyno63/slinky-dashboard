@@ -24,6 +24,7 @@ val settings = Def.settings(
   npmDependencies in Compile ++= packageJson.value.dependencies,
   npmDevDependencies in Compile ++= packageJson.value.devDependencies,
   stIgnore := List("react-proxy"),
+  stFlavour := Flavour.Slinky,
   scalacOptions += "-Ymacro-annotations",
   version in webpack := "4.43.0",
   version in startWebpackDevServer:= "3.11.0",
