@@ -72,8 +72,8 @@ object BoardCSS extends js.Object
       "Google" -> "https://google.com",
       "Amazon" -> "https://www.amazon.co.jp/",
     ).map{
-      values =>
-        createLinkList(values._2, values._1)
+      case(key, value) =>
+        createLinkList(value, key)
     }
   }
 
