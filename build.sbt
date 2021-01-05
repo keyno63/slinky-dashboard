@@ -1,5 +1,7 @@
 import sbt.Keys.version
 
+fork := true
+
 name := "slinky-dashboard"
 
 scalaVersion := "2.13.2"
