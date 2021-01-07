@@ -44,3 +44,10 @@ requireJsDomEnv in Test := true
 addCommandAlias("dev", ";fastOptJS::startWebpackDevServer;~fastOptJS")
 
 addCommandAlias("build", "fullOptJS::webpack")
+
+// scalafmt command alias.
+addCommandAlias("fmt", "all scalafmtSbt scalafmt test:scalafmt")
+addCommandAlias(
+  "check",
+  "all scalafmtSbtCheck scalafmtCheck test:scalafmtCheck"
+)
