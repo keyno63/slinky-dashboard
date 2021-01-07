@@ -14,10 +14,9 @@ import slinky.web.html.onClick
 
   override def initialState: State = State(None)
 
-  override def render(): ReactElement = {
+  override def render(): ReactElement =
     button(
       className := "square",
       onClick := (_ => setState(State(Some("x"))))
     )(state.value)
-  }
 }

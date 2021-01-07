@@ -1,11 +1,11 @@
 package com.github.keyno.dashboard
 
-import slinky.core.{FunctionalComponent, StatelessComponent, WithAttrs}
+import slinky.core.{ FunctionalComponent, StatelessComponent, WithAttrs }
 import slinky.core.annotations.react
 import slinky.core.facade.ReactElement
-import slinky.web.html.{div, hr, _}
-import typings.reactRouter.mod.{RouteProps, `match`}
-import typings.reactRouterDom.components.{BrowserRouter, Link, Route, Switch}
+import slinky.web.html.{ div, hr, _ }
+import typings.reactRouter.mod.{ `match`, RouteProps }
+import typings.reactRouterDom.components.{ BrowserRouter, Link, Route, Switch }
 
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSImport
@@ -19,16 +19,15 @@ object BoardCSS extends js.Object
 
   private val css = BoardCSS
 
-  def render(): ReactElement = {
+  def render(): ReactElement =
     List(
       head(),
       body0(),
       body1(),
-      switch(),
+      switch()
     )
-  }
 
-  def head(): ReactElement = {
+  def head(): ReactElement =
     div(className := "Board")(
       //      a(className := "App-header", href := "https://google.com")(
       //        "サンプルリンク"
@@ -37,27 +36,24 @@ object BoardCSS extends js.Object
         h1(className := "Board-title")("サンプルリンク")
       )
     )
-  }
 
-  def body0(): ReactElement = {
+  def body0(): ReactElement =
     div(className := "Board-box")(
       List(
         p()("sample link1"),
         second()
       )
     )
-  }
 
-  def body1(): ReactElement = {
+  def body1(): ReactElement =
     div(className := "Board-box")(
       List(
         p()("sample link2"),
         second()
       )
     )
-  }
 
-  def second(): ReactElement = {
+  def second(): ReactElement =
     div(className := "Communication")(
 //      a(className := "App-header", href := "https://google.com")(
 //        "Google"
@@ -67,44 +63,40 @@ object BoardCSS extends js.Object
 //      ),
       sampleLinks()
     )
-  }
 
-  def sampleLinks(): List[ReactElement] = {
+  def sampleLinks(): List[ReactElement] =
     List(
       "Google" -> "https://google.com",
-      "Amazon" -> "https://www.amazon.co.jp/",
-    ).map{
-      case(key, value) =>
+      "Amazon" -> "https://www.amazon.co.jp/"
+    ).map {
+      case (key, value) =>
         createLinkList(value, key)
     }
-  }
 
-  def createLinkList(linkUrl: String, text: String): ReactElement = {
+  def createLinkList(linkUrl: String, text: String): ReactElement =
     li()(
       a(href := linkUrl)(text)
     )
-  }
 
   // 空ページ
   def home: WithAttrs[div.tag.type] = div(h2("Home"))
 
-  def switch(): ReactElement = {
+  def switch(): ReactElement =
     div()(
       BrowserRouter(
         div(
           ul(
             li(Link[js.Object](to = "/")("Home")),
-            li(Link[js.Object](to = "/result")("Result")),
+            li(Link[js.Object](to = "/result")("Result"))
           ),
           hr(),
           Switch(
             Route(RouteProps().setExact(true).setPath("/").setRender(_ => home)),
-            Route(RouteProps().setPath("/result").setRender(props => ResultPage(props.`match`))),
+            Route(RouteProps().setPath("/result").setRender(props => ResultPage(props.`match`)))
           )
         )
       )
     )
-  }
 }
 
 @react object ResultPage {

@@ -1,7 +1,7 @@
 package com.github.keyno.dashboard
 
 import scala.scalajs.js
-import scala.scalajs.js.annotation.{JSExportTopLevel, JSImport}
+import scala.scalajs.js.annotation.{ JSExportTopLevel, JSImport }
 import scala.scalajs.LinkingInfo
 import slinky.web.ReactDOM
 import slinky.hot
