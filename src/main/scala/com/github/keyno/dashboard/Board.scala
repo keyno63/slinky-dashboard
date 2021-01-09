@@ -24,6 +24,7 @@ object BoardCSS extends js.Object
       head(),
       body0(),
       body1(),
+      div()(hr()),
       switch()
     )
 
