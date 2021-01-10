@@ -22,9 +22,11 @@ object BoardCSS extends js.Object
   def render(): ReactElement =
     List(
       head(),
-      body0(),
-      body1(),
-      div()(hr()),
+      div(id := "top", className := "")(
+        body0(),
+        body1(),
+      ),
+      div(className := "Board-box2")(hr()),
       switch()
     )
 
@@ -83,7 +85,7 @@ object BoardCSS extends js.Object
   def home: WithAttrs[div.tag.type] = div(h2("Home"))
 
   def switch(): ReactElement =
-    div()(
+    div(className := "Board-box2")(
       BrowserRouter(
         div(
           ul(

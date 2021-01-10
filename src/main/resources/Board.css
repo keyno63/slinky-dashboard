@@ -18,6 +18,11 @@
     width: 200px;
 }
 
+.Board-box2 {
+    width: 300px;
+    /*box-shadow: 1px 1px 1px #222;*/
+}
+
 .Communication {
     color: aqua;
 }
