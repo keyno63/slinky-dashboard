@@ -15,12 +15,18 @@
 
 .Board-box {
     float: left;
-    width: 200px;
+    /*width: 200px;*/
+    width: calc(33.3% - 10px)
 }
 
 .Board-box2 {
     width: 300px;
     /*box-shadow: 1px 1px 1px #222;*/
+}
+
+.Board-virtical {
+    box-flex: 1;
+    overflow: auto;
 }
 
 .Communication {

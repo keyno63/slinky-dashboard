@@ -22,7 +22,7 @@ object BoardCSS extends js.Object
   def render(): ReactElement =
     List(
       head(),
-      div(id := "top", className := "")(
+      div(id := "top", className := "Board-virtical")(
         body0(),
         body1(),
       ),
@@ -124,8 +124,7 @@ object BoardCSS extends js.Object
             .setExact(true)
             .setPath(m.path)
             .setRender(_ => h3())
-        )^
-
+        )
       )
     )
   }
