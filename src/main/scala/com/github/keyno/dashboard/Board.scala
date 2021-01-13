@@ -106,6 +106,7 @@ object BoardCSS extends js.Object
   type Props = `match`[_]
 
   val component: FunctionalComponent[Props] = FunctionalComponent[Props] { m =>
+    //val list = List("a", "b", "c")
     div(
       h2("ResultPage"),
       ul(
@@ -123,7 +124,8 @@ object BoardCSS extends js.Object
             .setExact(true)
             .setPath(m.path)
             .setRender(_ => h3())
-        )
+        )^
+
       )
     )
   }
@@ -134,6 +136,7 @@ object BoardCSS extends js.Object
   @js.native
   trait Param extends js.Object {
     val resultId: String = js.native
+    //val resultId: List[String] = js.native
   }
 
   case class Props(`match`: `match`[Result.Param])
@@ -141,6 +144,10 @@ object BoardCSS extends js.Object
   val component: FunctionalComponent[Props] = FunctionalComponent[Props] { props =>
     div(
       h3("Result: " + props.`match`.params.resultId)
+//      h3("Result: "),
+//      div()(
+//        props.`match`.params.resultId.map(x => li()(x))
+//      )
     )
   }
 }

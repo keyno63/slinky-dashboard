@@ -8,11 +8,15 @@ import scala.io.Source
 class MonsterListService(repository: MonsterListRepository) {
 
   def getMonsterList(isRank: Boolean = true, lowerLimit: Int = 0, upperLimit: Int = 1000) = {
-
     val pokemonMapList: List[PokemonId] = repository.getMonsterMapList()
 
-    val trainers = ???
-    // repository.getTrainers()
+    val trainers: List[Trainer] = repository.getTrainers()
+
+    val limit100 = if (isRank)
+      sliceRankList(trainers, lowerLimit, upperLimit)
+    else
+      slicePointList(trainers, lowerLimit, upperLimit)
+    count(pokemonMapList, limit100)
   }
 
   def protoImpl() = {
