@@ -28,7 +28,9 @@ object BoardCSS extends js.Object
       head(),
       div(id := "top", className := "Board-virtical")(
         body0(),
-        body1(),
+        body1()
+      ),
+      div(className := "Board-virtical")(
         ButtonComponent()
       ),
       div(className := "Board-box2")(hr()),
@@ -187,6 +189,13 @@ object BoardCSS extends js.Object
   }
 
   override def render(): ReactElement = {
+    div()(
+      h3("form"),
+      createForm()
+    )
+  }
+
+  def createForm(): ReactElement = {
     form(
       onSubmit := (handleSubmit(_))
     )(
