@@ -1,11 +1,12 @@
 package com.github.keyno.dashboard
 
-import slinky.core.{ FunctionalComponent, StatelessComponent, WithAttrs }
+import org.scalajs.dom.{Event, html}
+import slinky.core.{Component, FunctionalComponent, StatelessComponent, SyntheticEvent, WithAttrs}
 import slinky.core.annotations.react
 import slinky.core.facade.ReactElement
-import slinky.web.html.{ div, hr, _ }
-import typings.reactRouter.mod.{ `match`, RouteProps }
-import typings.reactRouterDom.components.{ BrowserRouter, Link, Route, Switch }
+import slinky.web.html._
+import typings.reactRouter.mod.{RouteProps, `match`}
+import typings.reactRouterDom.components.{BrowserRouter, Link, Route, Switch}
 
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSImport
@@ -14,7 +15,10 @@ import scala.scalajs.js.annotation.JSImport
 @js.native
 object BoardCSS extends js.Object
 
-@react class Board extends StatelessComponent {
+@react class Board
+  extends StatelessComponent
+  //extends Component
+{
   type Props = Unit
 
   private val css = BoardCSS
@@ -25,6 +29,7 @@ object BoardCSS extends js.Object
       div(id := "top", className := "Board-virtical")(
         body0(),
         body1(),
+        ButtonComponent()
       ),
       div(className := "Board-box2")(hr()),
       switch()
@@ -90,12 +95,14 @@ object BoardCSS extends js.Object
         div(
           ul(
             li(Link[js.Object](to = "/")("Home")),
-            li(Link[js.Object](to = "/result")("Result"))
+            li(Link[js.Object](to = "/result")("Result")),
+            li(Link[js.Object](to = "/list")("List")),
           ),
           hr(),
           Switch(
             Route(RouteProps().setExact(true).setPath("/").setRender(_ => home)),
-            Route(RouteProps().setPath("/result").setRender(props => ResultPage(props.`match`)))
+            Route(RouteProps().setPath("/result").setRender(props => ResultPage(props.`match`))),
+            Route(RouteProps().setPath("/list").setRender(props => ResultPage(props.`match`)))
           )
         )
       )
@@ -147,6 +154,51 @@ object BoardCSS extends js.Object
 //      div()(
 //        props.`match`.params.resultId.map(x => li()(x))
 //      )
+    )
+  }
+}
+
+@react class ButtonComponent extends Component {
+  //case class Props()
+  type Props = Unit
+  case class State(text: String, email: String)
+
+  override def initialState: State = State("", "")
+
+  def handleChange(event: SyntheticEvent[html.Input, Event]): Unit = {
+    val eventValue = event.target.value
+    setState(_.copy(text = eventValue))
+  }
+
+  def handleChange2(event: SyntheticEvent[html.Input, Event]): Unit = {
+    val eventValue = event.target.value
+    setState(_.copy(email = eventValue))
+  }
+
+  def handleSubmit(e: SyntheticEvent[html.Form, Event]): Unit = {
+    e.preventDefault()
+
+    if (state.text.nonEmpty && state.email.nonEmpty) {
+      setState(precState => {
+        State(state.text, state.email)
+      }
+      )
+    }
+  }
+
+  override def render(): ReactElement = {
+    form(
+      onSubmit := (handleSubmit(_))
+    )(
+      input(
+        onChange :=(handleChange(_)),
+        value := state.text
+      )(),
+      input(
+        onChange := (handleChange2(_)),
+        value := state.email
+      )(),
+      button(`type` := "submit")("送信")
     )
   }
 }
