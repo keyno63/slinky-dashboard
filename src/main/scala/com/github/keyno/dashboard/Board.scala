@@ -5,6 +5,7 @@ import slinky.core.{Component, FunctionalComponent, StatelessComponent, Syntheti
 import slinky.core.annotations.react
 import slinky.core.facade.ReactElement
 import slinky.web.html._
+import slinky.history.History
 import typings.reactRouter.mod.{RouteProps, `match`}
 import typings.reactRouterDom.components.{BrowserRouter, Link, Route, Switch}
 
@@ -163,26 +164,26 @@ object BoardCSS extends js.Object
 @react class ButtonComponent extends Component {
   //case class Props()
   type Props = Unit
-  case class State(text: String, email: String)
+  case class State(min: String, max: String)
 
-  override def initialState: State = State("", "")
+  override def initialState: State = State("1", "100")
 
   def handleChange(event: SyntheticEvent[html.Input, Event]): Unit = {
     val eventValue = event.target.value
-    setState(_.copy(text = eventValue))
+    setState(_.copy(min = eventValue))
   }
 
   def handleChange2(event: SyntheticEvent[html.Input, Event]): Unit = {
     val eventValue = event.target.value
-    setState(_.copy(email = eventValue))
+    setState(_.copy(max = eventValue))
   }
 
   def handleSubmit(e: SyntheticEvent[html.Form, Event]): Unit = {
     e.preventDefault()
 
-    if (state.text.nonEmpty && state.email.nonEmpty) {
+    if (state.min < state.max) {
       setState(precState => {
-        State(state.text, state.email)
+        State(state.min, state.max)
       }
       )
     }
@@ -199,15 +200,41 @@ object BoardCSS extends js.Object
     form(
       onSubmit := (handleSubmit(_))
     )(
+      label()("検索範囲: "),
       input(
         onChange :=(handleChange(_)),
-        value := state.text
+        value := state.min
       )(),
+      label()("から"),
       input(
         onChange := (handleChange2(_)),
-        value := state.email
+        value := state.max
       )(),
-      button(`type` := "submit")("送信")
+      label()("まで"),
+      //button(`type` := "submit")("送信"),
+      BrowserRouter()(
+        div()(
+          button(`type` := "submit")(Link[js.Object](to = "/subimit")("送信")),
+          Route(RouteProps().setPath("/subimit").setRender(props => ResultCalc(state.min.toIntOption.getOrElse(0), state.max.toIntOption.getOrElse(0)))),
+        )
+      )
+    )
+  }
+}
+
+@react object ResultCalc {
+  @js.native
+  trait Param extends js.Object {
+    val resultId: String = js.native
+    //val resultId: List[String] = js.native
+  }
+
+  //case class Props(`match`: `match`[Result.Param])
+  case class Props(min: Int, max: Int)
+
+  val component: FunctionalComponent[Props] = FunctionalComponent[Props] { props =>
+    div(
+      h3(s"Result. min: ${props.min}, max: ${props.max}")
     )
   }
 }
