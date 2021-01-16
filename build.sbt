@@ -42,6 +42,11 @@ lazy val scraping = project
     name := "scraping",
     libraryDependencies ++= Seq(
       "net.ruippeixotog" %% "scala-scraper" % "2.2.0"
+    ) ++ Seq(
+      "org.skinny-framework" %% "skinny-http-client"
+    ).map(_ % "3.1.0") ++ Seq(
+      "org.slf4j" % "slf4j-log4j12" % "1.7.30" % Test,
+      "log4j"     % "log4j"         % "1.2.17"
     )
   )
 
