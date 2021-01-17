@@ -7,7 +7,7 @@ import scala.io.Source
 
 class MonsterListService(repository: MonsterListRepository) {
 
-  def getMonsterList(isRank: Boolean = true, lowerLimit: Int = 0, upperLimit: Int = 1000) = {
+  def getMonsterList(isRank: Boolean = true, lowerLimit: Int = 0, upperLimit: Int = 1000, countMax: Int = 20) = {
     val pokemonMapList: List[PokemonId] = repository.getMonsterMapList()
 
     val trainers: List[Trainer] = repository.getTrainers()
@@ -16,7 +16,8 @@ class MonsterListService(repository: MonsterListRepository) {
       sliceRankList(trainers, lowerLimit, upperLimit)
     else
       slicePointList(trainers, lowerLimit, upperLimit)
-    count(pokemonMapList, limit100)
+    //count(pokemonMapList, limit100)
+    getMonsterCountList(pokemonMapList, limit100).slice(0, countMax)
   }
 
   def protoImpl() = {
@@ -86,7 +87,7 @@ class MonsterListService(repository: MonsterListRepository) {
       .foldLeft(List.empty[Trainer])((l, v) => if (v.point >= lowerLimit && v.point <= upperLimit) l ++ List(v) else l)
   }
 
-  def count(pokemonMapList: List[PokemonId], targetList : List[Trainer]) = {
+  def getMonsterCountList(pokemonMapList: List[PokemonId], targetList : List[Trainer]): List[(String, Int)] = {
     var data = Map.empty[String, Int]
     targetList
       .map(_.getPokemons)
@@ -102,6 +103,11 @@ class MonsterListService(repository: MonsterListRepository) {
       .map(x => (convertPokemonName(pokemonMapList, x._1), x._2))
       .sortBy(_._2)
       .foldLeft(List.empty[(String, Int)])((k, v) => List(v) ++ k)
+  }
+
+  def count(pokemonMapList: List[PokemonId], targetList : List[Trainer]) = {
+    val list = getMonsterCountList(pokemonMapList, targetList)
+    list
       .zipWithIndex
       .foreach(x => println(s"${x._2 + 1}: ${x._1}"))
   }

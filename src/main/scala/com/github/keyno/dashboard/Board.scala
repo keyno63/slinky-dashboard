@@ -1,5 +1,7 @@
 package com.github.keyno.dashboard
 
+import com.github.keyno.dashboard.domain.repository.MonsterListRepository
+import com.github.keyno.dashboard.domain.service.MonsterListService
 import org.scalajs.dom.{Event, html}
 import slinky.core.{Component, FunctionalComponent, StatelessComponent, SyntheticEvent, WithAttrs}
 import slinky.core.annotations.react
@@ -216,6 +218,8 @@ object BoardCSS extends js.Object
         div()(
           button(`type` := "submit")(Link[js.Object](to = "/subimit")("送信")),
           Route(RouteProps().setPath("/subimit").setRender(props => ResultCalc(state.min.toIntOption.getOrElse(0), state.max.toIntOption.getOrElse(0)))),
+          // TODO: java io from scalajs
+          //Route(RouteProps().setPath("/subimit").setRender(props => ResultCalcImpl(false, state.min.toIntOption.getOrElse(0), state.max.toIntOption.getOrElse(0)))),
         )
       )
     )
@@ -235,6 +239,34 @@ object BoardCSS extends js.Object
   val component: FunctionalComponent[Props] = FunctionalComponent[Props] { props =>
     div(
       h3(s"Result. min: ${props.min}, max: ${props.max}")
+    )
+  }
+}
+
+@react object ResultCalcImpl {
+  @js.native
+  trait Param extends js.Object {
+    val resultId: String = js.native
+  }
+
+  case class Props(isRank: Boolean, min: Int, max: Int)
+
+  val service = new MonsterListService(new MonsterListRepository)
+
+  val component: FunctionalComponent[Props] = FunctionalComponent[Props] { props =>
+    val list = service.getMonsterList(props.isRank, props.min, props.max)
+    div(
+      h3(s"Result. min: ${props.min}, max: ${props.max}"),
+      table()(
+        tbody()(
+            list.map { data =>
+              tr()(
+                td()(data._1),
+                td()(data._2)
+              )
+            }
+        )
+      )
     )
   }
 }
