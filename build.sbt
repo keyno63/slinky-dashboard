@@ -16,6 +16,7 @@ lazy val `slinky-dashboard` = project
     libraryDependencies ++= Seq(
       "me.shadaj"     %%% "slinky-web"          % "0.6.5",
       "me.shadaj"     %%% "slinky-hot"          % "0.6.5",
+      "me.shadaj"     %%% "slinky-react-router" % "0.6.5",
       "org.scalatest" %%% "scalatest"           % "3.1.1" % Test
     )
   )
@@ -35,20 +36,6 @@ val settings = Def.settings(
   webpackConfigFile in fullOptJS := Some(baseDirectory.value / "webpack" / "webpack-opt.config.js"),
   webpackConfigFile in Test := Some(baseDirectory.value / "webpack" / "webpack-core.config.js")
 )
-
-lazy val scraping = project
-  .in(file("./scrap"))
-  .settings(
-    name := "scraping",
-    libraryDependencies ++= Seq(
-      "net.ruippeixotog" %% "scala-scraper" % "2.2.0"
-    ) ++ Seq(
-      "org.skinny-framework" %% "skinny-http-client"
-    ).map(_ % "3.1.0") ++ Seq(
-      "org.slf4j" % "slf4j-log4j12" % "1.7.30" % Test,
-      "log4j"     % "log4j"         % "1.2.17"
-    )
-  )
 
 webpackDevServerExtraArgs in fastOptJS := Seq("--inline", "--hot")
 webpackBundlingMode in fastOptJS := BundlingMode.LibraryOnly()
