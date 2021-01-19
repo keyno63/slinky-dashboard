@@ -17,6 +17,7 @@ lazy val `slinky-dashboard` = project
       "me.shadaj"     %%% "slinky-web"          % "0.6.5",
       "me.shadaj"     %%% "slinky-hot"          % "0.6.5",
       "me.shadaj"     %%% "slinky-react-router" % "0.6.5",
+      "net.exoego"    %%% "scala-js-nodejs-v14" % "0.12.0",
       "org.scalatest" %%% "scalatest"           % "3.1.1" % Test
     )
   )
