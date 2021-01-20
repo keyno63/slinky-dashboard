@@ -1,16 +1,27 @@
 package com.github.keyno.dashboard.domain.repository
 
 import com.github.keyno.dashboard.domain.objects.{Pokemon, PokemonId, Trainer}
+import io.scalajs.nodejs.fs.Fs
+import io.scalajs.nodejs.fs.Fs._
 
+import scala.concurrent.ExecutionContext
 import scala.io.Source
 
 class MonsterListRepository {
 
+  implicit val ec: ExecutionContext = scala.concurrent.ExecutionContext.Implicits.global
+
   def getMonsterList() = ???
 
   def getMonsterMapList(): List[PokemonId] = {
+    val filename = "scrap/src/main/resources/pokefun/s13/monster.csv"
     val pokemonIdSource = Source
-      .fromFile("scrap/src/main/resources/pokefun/s13/monster.csv")
+      .fromFile(filename)
+
+//    val x : String = for {
+//      output <- Fs.readFileFuture(filename)
+//    } yield output
+
     pokemonIdSource
       .getLines()
       .map {
@@ -37,5 +48,17 @@ class MonsterListRepository {
           Pokemon(id5, item5))
       }
     }.toList
+  }
+}
+
+object Sample extends scala.App {
+  implicit val ec: ExecutionContext = scala.concurrent.ExecutionContext.Implicits.global
+
+  val filename = "scrap/src/main/resources/pokefun/s13/monster.csv"
+
+  for {
+      output <- Fs.readFileFuture(filename)
+    } {
+    println(output)
   }
 }
