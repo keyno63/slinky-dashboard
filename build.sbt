@@ -47,6 +47,10 @@ addCommandAlias("dev", ";fastOptJS::startWebpackDevServer;~fastOptJS")
 
 addCommandAlias("build", "fullOptJS::webpack")
 
+//build.sbt
+ThisBuild / semanticdbEnabled := true
+ThisBuild / semanticdbVersion := scalafixSemanticdb.revision
+
 // scalafmt command alias.
 addCommandAlias("fmt", "all scalafmtSbt scalafmt test:scalafmt")
 addCommandAlias(
